@@ -39,16 +39,16 @@ def receive_slack_event():
     msg = request.get_json()
     print(msg)
 
-	if 'challenge' in msg:
+    if 'challenge' in msg:
         return make_response(json.jsonify(challenge=msg['challenge']), 200)
 
-	event_obj = msg.get('event')
-	resp = {"happened": "nothing"}
+    event_obj = msg.get('event')
+    resp = {"happened": "nothing"}
 
-	if event_obj['user'] == "UMXQK1TF0": # ID of him
-	    client = slack.WebClient(token=os.environ['SLACK_API_TOKEN'])
-	    chat = event_obj['text']
-		resp = client.chat_postMessage(channel='#development', text=chat)
+    if event_obj['user'] == "UMXQK1TF0": # ID of him
+        client = slack.WebClient(token=os.environ['SLACK_API_TOKEN'])
+        chat = event_obj['text']
+        resp = client.chat_postMessage(channel='#development', text=chat)
 
     return make_response(json.jsonify(**resp), 200)
 
